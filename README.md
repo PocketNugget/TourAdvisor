@@ -1,4 +1,4 @@
-# TourAdvisor - Chichen Itza Virtual Tour 🏛️
+# MayaVision - Chichen Itza Virtual Tour 🏛️
 
 [![Made with Node.js](https://img.shields.io/badge/Made%20with-Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org)
 [![Powered by Express](https://img.shields.io/badge/Powered%20by-Express-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com)
@@ -11,9 +11,9 @@
 
 ---
 
-## What is TourAdvisor?
+## What is MayaVision?
 
-**TourAdvisor** is a specialized platform designed to bridge the gap between history and technology. It allows users to explore Chichen Itza virtually through a distributed system that manages participants, guides, and avatars in real-time. The system features distinct interfaces for users and administrators, ensuring a seamless experience for booking tours and managing the virtual environment.
+**MayaVision** is a specialized platform designed to bridge the gap between history and technology. It allows users to explore Chichen Itza virtually through a distributed system that manages participants, guides, and avatars in real-time. The system features distinct interfaces for users and administrators, ensuring a seamless experience for booking tours and managing the virtual environment.
 
 ---
 
@@ -57,7 +57,7 @@
 
 ```bash
 git clone <repository-url>
-cd TourAdvisor
+cd MayaVision
 ```
 
 ### 2. Start with Docker (Recommended)
@@ -153,4 +153,4 @@ Academic Project - Distributed Systems Course
 
 ---
 
-**Built with ❤️ by the TourAdvisor Team — © 2025**
+**Built with ❤️ by the MayaVision Team — © 2025**
