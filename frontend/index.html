@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MayaVision: Virtual Chichen Itzá Explorer</title>
+    <title>MayaVision: Experience Chichen Itzá</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
+                fontFamily: {
+                    sans: ['Outfit', 'sans-serif'],
+                },
                 extend: {
                     colors: {
-                        primary: {
+                        brand: {
                             50: '#f0fdf4',
                             100: '#dcfce7',
                             200: '#bbf7d0',
@@ -22,282 +26,356 @@
                             700: '#15803d',
                             800: '#166534',
                             900: '#14532d',
-                        },
-                        secondary: {
-                            50: '#f8fafc',
-                            100: '#f1f5f9',
-                            200: '#e2e8f0',
-                            300: '#cbd5e1',
-                            400: '#94a3b8',
-                            500: '#64748b',
-                            600: '#475569',
-                            700: '#334155',
-                            800: '#1e293b',
-                            900: '#0f172a',
+                            950: '#052e16',
                         }
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1518638151313-982d9120c80b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2600&q=80')",
                     }
                 }
             }
         }
     </script>
+    <style>
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+    </style>
 </head>
+<body class="bg-gray-950 text-gray-100 font-sans antialiased selection:bg-brand-500 selection:text-white">
 
-<body class="bg-gray-950 text-gray-200">
-    <nav class="bg-gray-900 border-b border-gray-800">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <span class="text-primary-400 font-bold text-xl">MayaVision</span>
+                <div class="flex items-center gap-2">
+                    <i data-feather="map" class="text-brand-400 w-8 h-8"></i>
+                    <span class="text-2xl font-bold tracking-tight text-white">Maya<span class="text-brand-400">Vision</span></span>
                 </div>
                 <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4" id="navLinks">
-                        <!-- Dynamic Links -->
-                        <button id="navLoginBtn" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</button>
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#features" class="text-gray-300 hover:text-white hover:text-brand-300 transition-colors px-3 py-2 rounded-md text-sm font-medium">Features</a>
+                        <a href="#tours" class="text-gray-300 hover:text-white hover:text-brand-300 transition-colors px-3 py-2 rounded-md text-sm font-medium">Tours</a>
+                        <a href="#reviews" class="text-gray-300 hover:text-white hover:text-brand-300 transition-colors px-3 py-2 rounded-md text-sm font-medium">Reviews</a>
+                        <a href="login.html" class="bg-brand-600 hover:bg-brand-500 text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all transform hover:scale-105 shadow-lg shadow-brand-900/20">
+                            Sign In
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="container mx-auto px-4 py-12">
-
-        <!-- Hero Section -->
-        <section class="relative bg-gradient-to-r from-gray-900 to-gray-800 rounded-2xl overflow-hidden mb-16 shadow-xl">
-            <div class="absolute inset-0 bg-black opacity-40"></div>
-            <div class="relative z-10 max-w-7xl mx-auto px-4 py-24 sm:px-6 lg:px-8 text-center">
-                <h1 class="text-4xl font-extrabold tracking-tight text-primary-300 sm:text-5xl lg:text-6xl">
-                    Explore Chichen Itzá Like Never Before
-                </h1>
-                <p class="mt-6 text-xl text-gray-300 max-w-3xl mx-auto">
-                    Immerse yourself in the ancient Mayan world with our interactive virtual tours.
-                </p>
-                <div class="mt-10 flex justify-center gap-4">
-                    <a href="login.html" class="inline-flex items-center px-6 py-3 text-base font-medium rounded-md shadow-lg text-gray-900 bg-primary-400 hover:bg-primary-300 transition">
-                        Start Tour
-                        <i data-feather="arrow-right" class="ml-2"></i>
-                    </a>
-                    <a href="#" class="inline-flex items-center px-6 py-3 text-base font-medium rounded-md shadow-lg text-primary-100 bg-gray-800 bg-opacity-60 hover:bg-opacity-80 transition">
-                        Learn More
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Learn More Section Target -->
-        <div id="learn-more"></div>
-        <!-- Features Section -->
-        <section class="py-12">
-            <!-- ... content ... -->
-        </section>
-
-        <!-- ... existing content ... -->
-
-    </main>
-
-    <!-- Login Modal -->
-    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-50">
-        <div class="bg-gray-800 p-8 rounded-xl shadow-2xl max-w-md w-full border border-gray-700">
-            <h2 class="text-2xl font-bold text-white mb-6">Login to MayaVision</h2>
-            <form id="loginForm" class="space-y-4">
-                <div>
-                    <label class="block text-gray-400 mb-1">Username</label>
-                    <input type="text" id="loginUser" class="w-full bg-gray-700 text-white rounded p-2 focus:ring-2 focus:ring-primary-500" required>
-                </div>
-                <div>
-                    <label class="block text-gray-400 mb-1">Password</label>
-                    <input type="password" id="loginPass" class="w-full bg-gray-700 text-white rounded p-2 focus:ring-2 focus:ring-primary-500" required>
-                </div>
-                <button type="submit" class="w-full bg-primary-600 hover:bg-primary-500 text-white font-bold py-2 rounded transition">Login</button>
-            </form>
-            <p class="mt-4 text-gray-400 text-sm text-center">
-                Don't have an account? <a href="#" id="showRegister" class="text-primary-400 hover:underline">Register</a>
-            </p>
-            <button id="closeLogin" class="mt-4 text-gray-500 hover:text-white w-full text-sm">Close</button>
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-gray-950 z-10"></div>
+            <div class="w-full h-full bg-hero-pattern bg-cover bg-center bg-no-repeat transform scale-105 animate-slow-zoom"></div>
         </div>
-    </div>
 
-    <!-- Register Modal -->
-    <div id="registerModal" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center z-50">
-        <div class="bg-gray-800 p-8 rounded-xl shadow-2xl max-w-md w-full border border-gray-700">
-            <h2 class="text-2xl font-bold text-white mb-6">Create Account</h2>
-            <form id="registerForm" class="space-y-4">
-                <div>
-                    <label class="block text-gray-400 mb-1">Full Name</label>
-                    <input type="text" id="regName" class="w-full bg-gray-700 text-white rounded p-2 focus:ring-2 focus:ring-primary-500" required>
-            <div class="max-w-7xl mx-auto">
-                <div class="lg:text-center">
-                    <h2 class="text-base text-primary-400 font-semibold tracking-wide uppercase">
-                        Virtual Experiences
-                    </h2>
-                    <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-100 sm:text-4xl">
-                        A new way to explore history
+        <div class="relative z-20 text-center px-4 max-w-5xl mx-auto mt-16">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-8 animate-fade-in-up">
+                <span class="flex h-2 w-2 rounded-full bg-brand-400 animate-pulse"></span>
+                <span class="text-sm font-medium text-brand-100">Live Virtual Tours Available Now</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-white mb-8 text-shadow animate-fade-in-up delay-100">
+                Walk Through <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 to-emerald-500">History</span>
+            </h1>
+            
+            <p class="mt-6 text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto mb-12 font-light leading-relaxed animate-fade-in-up delay-200">
+                Experience the wonder of Chichen Itzá from anywhere in the world. 
+                Join expert-led virtual tours and explore the ancient Mayan civilization in stunning 3D.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up delay-300">
+                <a href="login.html" class="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-brand-600 font-pj rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-600 hover:bg-brand-500 hover:scale-105 shadow-xl shadow-brand-900/30">
+                    Start Your Journey
+                    <i data-feather="arrow-right" class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+                <a href="#tours" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-white/10 border border-white/20 backdrop-blur-sm font-pj rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-white/20">
+                    View Tours
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#features" class="text-white/50 hover:text-white transition-colors">
+                <i data-feather="chevron-down" class="w-10 h-10"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section id="features" class="py-24 bg-gray-950 relative overflow-hidden">
+        <!-- Decorative blobs -->
+        <div class="absolute top-0 left-0 w-96 h-96 bg-brand-900/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-emerald-900/20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-brand-400 font-semibold tracking-wide uppercase text-sm mb-2">Why Choose MayaVision?</h2>
+                <h3 class="text-3xl md:text-5xl font-bold text-white">Immersive. Educational. Social.</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="group p-8 rounded-3xl bg-gray-900/50 border border-gray-800 hover:border-brand-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-900/20">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-900/50 flex items-center justify-center mb-6 group-hover:bg-brand-600 transition-colors">
+                        <i data-feather="box" class="text-brand-400 group-hover:text-white w-7 h-7 transition-colors"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3">3D Reconstruction</h4>
+                    <p class="text-gray-400 leading-relaxed">
+                        Explore high-fidelity 3D models of the ruins. See details that are impossible to spot from the ground in real life.
                     </p>
                 </div>
 
-                <div class="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-
-                    <!-- Feature 1 -->
-                    <div class="bg-gray-900 rounded-xl shadow-lg transition hover:shadow-primary-500/30 hover:scale-[1.02]">
-                        <div class="h-48 bg-gradient-to-r from-secondary-800 to-secondary-600 flex items-center justify-center">
-                            <i data-feather="users" class="text-primary-300 w-16 h-16"></i>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-lg font-medium text-primary-300">Group Tours</h3>
-                            <p class="mt-2 text-base text-gray-400">
-                                Explore with friends or meet new people in our interactive group tours with live guides.
-                            </p>
-                        </div>
+                <!-- Feature 2 -->
+                <div class="group p-8 rounded-3xl bg-gray-900/50 border border-gray-800 hover:border-brand-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-900/20">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-900/50 flex items-center justify-center mb-6 group-hover:bg-brand-600 transition-colors">
+                        <i data-feather="users" class="text-brand-400 group-hover:text-white w-7 h-7 transition-colors"></i>
                     </div>
+                    <h4 class="text-xl font-bold text-white mb-3">Live Multiplayer</h4>
+                    <p class="text-gray-400 leading-relaxed">
+                        Don't explore alone. Join friends and family in real-time. See their avatars and chat as you discover history together.
+                    </p>
+                </div>
 
-                    <!-- Feature 2 -->
-                    <div class="bg-gray-900 rounded-xl shadow-lg transition hover:shadow-primary-500/30 hover:scale-[1.02]">
-                        <div class="h-48 bg-gradient-to-r from-primary-700 to-primary-500 flex items-center justify-center">
-                            <i data-feather="user" class="text-black w-16 h-16"></i>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-lg font-medium text-primary-300">Private Tours</h3>
-                            <p class="mt-2 text-base text-gray-400">
-                                Enjoy a personalized experience with your own private guide through the ruins.
-                            </p>
-                        </div>
+                <!-- Feature 3 -->
+                <div class="group p-8 rounded-3xl bg-gray-900/50 border border-gray-800 hover:border-brand-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-900/20">
+                    <div class="w-14 h-14 rounded-2xl bg-brand-900/50 flex items-center justify-center mb-6 group-hover:bg-brand-600 transition-colors">
+                        <i data-feather="mic" class="text-brand-400 group-hover:text-white w-7 h-7 transition-colors"></i>
                     </div>
-
-                    <!-- Feature 3 -->
-                    <div class="bg-gray-900 rounded-xl shadow-lg transition hover:shadow-primary-500/30 hover:scale-[1.02]">
-                        <div class="h-48 bg-gradient-to-r from-secondary-700 to-secondary-500 flex items-center justify-center">
-                            <i data-feather="award" class="text-primary-300 w-16 h-16"></i>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-lg font-medium text-primary-300">Expert Guides</h3>
-                            <p class="mt-2 text-base text-gray-400">
-                                Learn from certified Mayan history experts with specialized knowledge of Chichen Itzá.
-                            </p>
-                        </div>
-                    </div>
-
+                    <h4 class="text-xl font-bold text-white mb-3">Expert Guides</h4>
+                    <p class="text-gray-400 leading-relaxed">
+                        Our certified guides lead scheduled tours, providing deep historical context and answering your questions live.
+                    </p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Avatar Customization -->
-        <section class="p-16 bg-gray-900 rounded-2xl shadow-xl">
-            <div class="max-w-7xl mx-auto">
-                <div class="lg:grid lg:grid-cols-12 lg:gap-8">
+    <!-- Popular Tours Section -->
+    <section id="tours" class="py-24 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">Popular Experiences</h2>
+                    <p class="mt-2 text-gray-400">Curated tours for every type of explorer</p>
+                </div>
+                <a href="login.html" class="hidden md:flex items-center text-brand-400 hover:text-brand-300 font-medium transition-colors">
+                    View all tours <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                </a>
+            </div>
 
-                    <div class="md:max-w-2xl md:mx-auto lg:col-span-6">
-                        <h2 class="text-base text-primary-400 font-semibold tracking-wide uppercase">Avatar System</h2>
-                        <p class="mt-2 text-3xl font-extrabold tracking-tight text-gray-100 sm:text-4xl">
-                            Create your virtual identity
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Tour Card 1 -->
+                <div class="group rounded-2xl overflow-hidden bg-gray-800 shadow-xl hover:shadow-2xl transition-all duration-300">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1565627702228-564993935102?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="El Castillo" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-white border border-white/20">
+                            MOST POPULAR
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">Sunrise at El Castillo</h3>
+                                <div class="flex items-center mt-1 text-gray-400 text-sm">
+                                    <i data-feather="clock" class="w-4 h-4 mr-1"></i> 60 mins
+                                    <span class="mx-2">•</span>
+                                    <i data-feather="user" class="w-4 h-4 mr-1"></i> Max 20
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">
+                            Witness the equinox phenomenon where the shadow of the serpent descends the pyramid steps. A magical experience.
                         </p>
-                        <p class="mt-3 text-lg text-gray-400">
-                            Choose from various roles that determine your capabilities and access during the tour.
+                        <a href="login.html" class="block w-full py-3 text-center rounded-xl bg-gray-700 hover:bg-brand-600 text-white font-semibold transition-colors">
+                            Book Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tour Card 2 -->
+                <div class="group rounded-2xl overflow-hidden bg-gray-800 shadow-xl hover:shadow-2xl transition-all duration-300">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1590559648626-4444983949e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cenote" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">Sacred Cenote Dive</h3>
+                                <div class="flex items-center mt-1 text-gray-400 text-sm">
+                                    <i data-feather="clock" class="w-4 h-4 mr-1"></i> 45 mins
+                                    <span class="mx-2">•</span>
+                                    <i data-feather="user" class="w-4 h-4 mr-1"></i> Max 10
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">
+                            Explore the underwater depths of the Sacred Cenote. Discover artifacts and geological formations in this unique tour.
                         </p>
-
-                        <div class="mt-8 grid grid-cols-2 gap-4">
-
-                            <div class="bg-gray-800 p-4 rounded-lg shadow hover:shadow-primary-500/20">
-                                <i data-feather="compass" class="text-primary-400 w-8 h-8"></i>
-                                <h4 class="mt-2 font-medium text-gray-100">Explorer</h4>
-                                <p class="mt-1 text-sm text-gray-400">Full access to all areas</p>
-                            </div>
-
-                            <div class="bg-gray-800 p-4 rounded-lg shadow hover:shadow-primary-500/20">
-                                <i data-feather="mic" class="text-primary-400 w-8 h-8"></i>
-                                <h4 class="mt-2 font-medium text-gray-100">Guide</h4>
-                                <p class="mt-1 text-sm text-gray-400">Lead tours and share knowledge</p>
-                            </div>
-
-                            <div class="bg-gray-800 p-4 rounded-lg shadow hover:shadow-primary-500/20">
-                                <i data-feather="camera" class="text-primary-400 w-8 h-8"></i>
-                                <h4 class="mt-2 font-medium text-gray-100">Photographer</h4>
-                                <p class="mt-1 text-sm text-gray-400">Special camera controls</p>
-                            </div>
-
-                            <div class="bg-gray-800 p-4 rounded-lg shadow hover:shadow-primary-500/20">
-                                <i data-feather="book" class="text-primary-400 w-8 h-8"></i>
-                                <h4 class="mt-2 font-medium text-gray-100">Researcher</h4>
-                                <p class="mt-1 text-sm text-gray-400">Access to detailed archives</p>
-                            </div>
-
-                        </div>
+                        <a href="login.html" class="block w-full py-3 text-center rounded-xl bg-gray-700 hover:bg-brand-600 text-white font-semibold transition-colors">
+                            Book Now
+                        </a>
                     </div>
+                </div>
 
-                    <!-- Avatar Image -->
-                    <div class="mt-12 lg:mt-0 lg:col-span-6 flex items-center">
-                        <div class="relative w-full rounded-lg shadow-lg">
-                            <img src="http://static.photos/travel/1024x576/42" alt="Chichen Itzá" class="w-full rounded-lg opacity-90 hover:opacity-100 transition">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60 rounded-lg"></div>
-                            <div class="absolute bottom-0 left-0 p-6">
-                                <h3 class="text-xl font-bold text-white">El Castillo</h3>
-                                <p class="mt-1 text-primary-200">The iconic pyramid of Kukulkan</p>
+                <!-- Tour Card 3 -->
+                <div class="group rounded-2xl overflow-hidden bg-gray-800 shadow-xl hover:shadow-2xl transition-all duration-300">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1518182170546-0766de6f6a56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Observatory" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">Mayan Astronomy</h3>
+                                <div class="flex items-center mt-1 text-gray-400 text-sm">
+                                    <i data-feather="clock" class="w-4 h-4 mr-1"></i> 90 mins
+                                    <span class="mx-2">•</span>
+                                    <i data-feather="user" class="w-4 h-4 mr-1"></i> Max 15
+                                </div>
                             </div>
                         </div>
+                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">
+                            Learn how the Mayans tracked the stars from El Caracol. A night tour focusing on ancient astronomy and mathematics.
+                        </p>
+                        <a href="login.html" class="block w-full py-3 text-center rounded-xl bg-gray-700 hover:bg-brand-600 text-white font-semibold transition-colors">
+                            Book Now
+                        </a>
                     </div>
-
                 </div>
             </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="mt-16 bg-primary-800 rounded-2xl overflow-hidden shadow-xl">
-            <div class="max-w-7xl mx-auto py-12 px-4 lg:flex lg:items-center lg:justify-between">
-                <h2 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-                    <span class="block">Ready to explore?</span>
-                    <span class="block text-primary-200">Start your virtual journey today.</span>
-                </h2>
-
-                <div class="mt-8 lg:mt-0">
-                    <a href="login.html" class="inline-flex items-center px-5 py-3 text-base font-medium rounded-md text-gray-900 bg-primary-300 hover:bg-primary-200 shadow">
-                        Sign Up Now
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Admin Panel Section -->
-        <section class="mt-16 bg-gray-900 rounded-2xl shadow-xl p-8 border border-gray-800">
-            <h2 class="text-2xl font-bold text-primary-400 mb-6">Admin Panel</h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Manage Zones -->
-                <div class="bg-gray-800 p-6 rounded-xl">
-                    <h3 class="text-xl font-semibold text-white mb-4">Manage Zones</h3>
-                    <form id="zoneForm" class="space-y-4">
-                        <input type="text" id="zoneName" placeholder="Zone Name" class="w-full bg-gray-700 text-white rounded p-2 focus:ring-2 focus:ring-primary-500">
-                        <textarea id="zoneDesc" placeholder="Description" class="w-full bg-gray-700 text-white rounded p-2 focus:ring-2 focus:ring-primary-500"></textarea>
-                        <div class="flex items-center">
-                            <input type="checkbox" id="zonePrivate" class="mr-2">
-                            <label for="zonePrivate" class="text-gray-300">Private Zone</label>
+            <div class="mt-8 text-center md:hidden">
+                <a href="login.html" class="inline-flex items-center text-brand-400 hover:text-brand-300 font-medium transition-colors">
+                    View all tours <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="reviews" class="py-24 bg-gray-950 border-t border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-16">What Explorers Say</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="bg-gray-900 p-8 rounded-2xl border border-gray-800 relative">
+                    <i data-feather="message-square" class="absolute top-8 right-8 text-gray-800 w-12 h-12"></i>
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-brand-400 to-emerald-600 flex items-center justify-center text-white font-bold text-lg">
+                            JD
                         </div>
-                        <button type="submit" class="w-full bg-primary-600 hover:bg-primary-500 text-white font-bold py-2 px-4 rounded transition">
-                            Add Zone
-                        </button>
-                    </form>
-                    <div id="zonesList" class="mt-4 space-y-2 max-h-40 overflow-y-auto">
-                        <!-- Zones will be loaded here -->
+                        <div class="ml-4">
+                            <h4 class="text-white font-bold">John Doe</h4>
+                            <div class="flex text-yellow-500">
+                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                        </div>
                     </div>
+                    <p class="text-gray-400 italic">"Absolutely mind-blowing. The level of detail in the 3D models is incredible, and the guide was so knowledgeable. Felt like I was really there!"</p>
                 </div>
 
-                <!-- Manage Participants -->
-                <div class="bg-gray-800 p-6 rounded-xl">
-                    <h3 class="text-xl font-semibold text-white mb-4">Register Participant</h3>
-                    <form id="participantForm" class="space-y-4">
-                        <input type="text" id="partName" placeholder="Full Name" class="w-full bg-gray-700 text-white rounded p-2 focus:ring-2 focus:ring-primary-500">
-                        <input type="email" id="partEmail" placeholder="Email" class="w-full bg-gray-700 text-white rounded p-2 focus:ring-2 focus:ring-primary-500">
-                        <select id="partRole" class="w-full bg-gray-700 text-white rounded p-2 focus:ring-2 focus:ring-primary-500">
-                            <!-- Roles loaded via JS -->
-                        </select>
-                        <button type="submit" class="w-full bg-secondary-600 hover:bg-secondary-500 text-white font-bold py-2 px-4 rounded transition">
-                            Register User
-                        </button>
-                    </form>
+                <!-- Review 2 -->
+                <div class="bg-gray-900 p-8 rounded-2xl border border-gray-800 relative">
+                    <i data-feather="message-square" class="absolute top-8 right-8 text-gray-800 w-12 h-12"></i>
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-indigo-600 flex items-center justify-center text-white font-bold text-lg">
+                            SM
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-white font-bold">Sarah Miller</h4>
+                            <div class="flex text-yellow-500">
+                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 italic">"My students loved the group tour. It's the perfect educational tool for history class. The interactive elements kept everyone engaged."</p>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-gray-900 p-8 rounded-2xl border border-gray-800 relative">
+                    <i data-feather="message-square" class="absolute top-8 right-8 text-gray-800 w-12 h-12"></i>
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center text-white font-bold text-lg">
+                            RK
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-white font-bold">Robert King</h4>
+                            <div class="flex text-yellow-500">
+                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                <i data-feather="star" class="w-4 h-4 fill-current"></i>
+                                <i data-feather="star" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 italic">"Great experience overall. The booking process was smooth, and the virtual environment ran perfectly on my laptop. Highly recommended."</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-    </main>
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-feather="map" class="text-brand-500 w-6 h-6"></i>
+                        <span class="text-xl font-bold text-white">Maya<span class="text-brand-500">Vision</span></span>
+                    </div>
+                    <p class="text-gray-500 max-w-sm">
+                        Bringing the wonders of the ancient world to your screen through cutting-edge virtual reality technology.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-500">
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">About Us</a></li>
+                        <li><a href="#tours" class="hover:text-brand-400 transition-colors">Tours</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Pricing</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-gray-500">
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-gray-900 text-center text-gray-600 text-sm">
+                &copy; 2024 MayaVision Virtual Tours. All rights reserved.
+            </div>
+        </div>
+    </footer>
 
-    <script>feather.replace();</script>
+    <script>
+        feather.replace();
+    </script>
     <script src="js/app.js"></script>
 </body>
 </html>
