@@ -22,12 +22,12 @@
 - **3-Tier Architecture:** Clear separation of Presentation (Frontend), Logic (Node.js/Express), and Data (MySQL).
 - **Role-Based Access Control:** Distinct capabilities for Explorers, Guides, Photographers, Researchers, and Admins.
 - **Interactive Dashboards:**
-    - **User Dashboard:** View available tours on a calendar, book slots, and manage personal bookings.
-    - **Admin Dashboard:** Master schedule view, create/edit tours, and manage active users.
+    - **User Dashboard:** View available tours on a calendar, book slots, and **move your avatar** between different zones (Lobby, El Castillo, etc.).
+    - **Admin Dashboard:** Master schedule view, create/edit tours with **zone assignment**, and manage active users.
 - **Virtual Avatar System:** Users are represented by avatars with specific roles and permissions within the virtual space.
 - **Real-Time Booking:** Instant reservation of tour slots with database persistence.
 - **Dockerized:** Complete environment (App + DB) orchestrated with Docker Compose for consistent deployment.
-- **Modern UI:** Built with Tailwind CSS for a responsive, dark-themed aesthetic inspired by premium travel experiences.
+- **Premium UI:** Built with Tailwind CSS for a responsive, dark-themed aesthetic inspired by premium travel experiences.
 
 ---
 
@@ -88,12 +88,13 @@ The system comes pre-seeded with the following accounts for testing:
 1.  **Register/Login:** Create an account or use the default `user` credentials.
 2.  **Browse Tours:** Use the **Calendar** on your dashboard to see upcoming tours.
 3.  **Book a Tour:** Click "Book" on any available tour in the sidebar list.
-4.  **My Bookings:** View your confirmed tours in the "My Bookings" section.
+4.  **Move Avatar:** Use the "Current Location" card to move your avatar to different zones in the virtual world.
+5.  **My Bookings:** View your confirmed tours in the "My Bookings" section.
 
 ### For Administrators 🛡️
 1.  **Login:** Access the system using the `admin` credentials.
 2.  **Master Schedule:** View all tours across the platform on the main calendar.
-3.  **Create Tours:** Use the "Create New Tour" form to schedule Group, Private, or Expert tours.
+3.  **Create Tours:** Use the "Create New Tour" form to schedule tours and **assign specific zones** to them.
 4.  **Manage Users:** Monitor active participants and remove users if necessary.
 
 ---
@@ -114,6 +115,7 @@ The system follows a strict **3-Tier Architecture**:
 3.  **Data Tier (Database):**
     -   **MySQL**: Relational database storing Users, Tours, Zones, and Roles.
     -   **Persistence**: Docker volumes ensure data survives container restarts.
+    -   **Schema**: Fully aligned with the project's UML Class Diagram (see `database/schema.puml`).
 
 ---
 
