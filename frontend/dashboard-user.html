@@ -56,6 +56,23 @@
                     </div>
                 </div>
 
+                <!-- Current Location -->
+                <div class="bg-gray-900 p-6 rounded-xl shadow-xl border border-gray-800">
+                    <h2 class="text-xl font-bold text-white mb-4">Current Location</h2>
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-feather="map-pin" class="text-primary-400"></i>
+                        <span id="currentZoneDisplay" class="text-lg text-gray-200">Lobby</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <select id="moveZoneSelect" class="flex-1 bg-gray-700 text-white rounded p-2 text-sm">
+                            <!-- Zones loaded via JS -->
+                        </select>
+                        <button onclick="moveAvatar()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded text-sm font-bold transition">
+                            Move
+                        </button>
+                    </div>
+                </div>
+
                 <!-- My Bookings -->
                 <div class="bg-gray-800 p-6 rounded-xl shadow-xl border border-gray-700">
                     <h2 class="text-xl font-bold text-primary-400 mb-4">My Bookings</h2>

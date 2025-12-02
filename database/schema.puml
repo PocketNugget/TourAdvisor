@@ -1,0 +1,130 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam shadowing true
+skinparam roundcorner 15
+skinparam classFontSize 14
+skinparam classFontStyle bold
+skinparam ArrowColor #333333
+skinparam ClassBorderColor #3A3A3A
+skinparam ClassBackgroundColor #EDEDED
+
+' ==========================
+'        CLASES
+' ==========================
+
+class Participante {
+    - idParticipante : int
+    - nombre : String
+    - correo : String
+    - username : String
+    - password : String
+    - conexionActiva : boolean
+    - ubicacionActual : String
+    - servidorAsignado : Servidor
+
+    + conectarse()
+    + desconectarse()
+    + moverA(zona : ZonaGeografica)
+    + enviarMensaje(mensaje : String)
+}
+
+class Avatar {
+    - idAvatar : int
+    - tipoAvatar : String
+    - estado : String
+    - posicionX : float
+    - posicionY : float
+    - zonaActual : ZonaGeografica
+    - rol : Rol
+
+    + actualizarEstado()
+    + cambiarPosicion(x : float, y : float)
+}
+
+class Rol {
+    - idRol : int
+    - nombreRol : String
+
+    + validarAcceso(zona : ZonaGeografica) : boolean
+    + agregarPermiso(p : Permiso)
+}
+
+class Permiso {
+    - idPermiso : int
+    - descripcion : String
+}
+
+class GuiaTurista {
+    - certificacion : String
+    - idioma : String
+
+    + iniciarRecorrido()
+    + explicarZona(z : ZonaGeografica)
+    + asistirParticipante(p : Participante)
+}
+
+class ZonaGeografica {
+    - idZona : int
+    - nombre : String
+    - descripcion : String
+    - esPrivada : boolean
+
+    + permitirAcceso(rol : Rol) : boolean
+    + mostrarInformacion()
+}
+
+class RecorridoVirtual {
+    - idRecorrido : int
+    - tipo : String
+    - fechaInicio : Date
+    - duracion : int
+    - zonas : List<ZonaGeografica>
+
+    + iniciar()
+    + finalizar()
+    + registrarActividad(act : String)
+    + agregarZona(z : ZonaGeografica)
+    + agregarParticipante(p : Participante)
+    + asignarGuia(g : GuiaTurista)
+}
+
+class Servidor {
+    - idServidor : int
+    - ubicacion : String
+    - capacidadUsuarios : int
+    - estado : String
+
+    + asignarUsuario(p : Participante)
+    + liberarUsuario(p : Participante)
+    + sincronizarEstados()
+}
+
+' ==========================
+'        RELACIONES
+' ==========================
+
+' Herencia
+GuiaTurista --|> Participante
+
+' Participante - Avatar (1 a 1)
+Participante "1" -- "1" Avatar : controla >
+
+' Avatar - Rol (1 a 1)
+Avatar "1" -- "1" Rol : tiene >
+
+' Rol - Permiso (1 a muchos)
+Rol "1" -- "0..*" Permiso : contiene >
+
+' RecorridoVirtual - Participante (1 a muchos)
+RecorridoVirtual "1" -- "0..*" Participante : incluye >
+
+' RecorridoVirtual - ZonaGeografica (1 a muchos)
+RecorridoVirtual "1" -- "1..*" ZonaGeografica : abarca >
+
+' RecorridoVirtual - GuiaTurista (1 recorrido, 0 o 1 guía)
+RecorridoVirtual "1" -- "0..1" GuiaTurista : dirigido_por >
+
+' Servidor - Participante (1 a muchos)
+Servidor "1" -- "0..*" Participante : gestiona >
+
+@enduml

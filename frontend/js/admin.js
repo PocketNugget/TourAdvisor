@@ -13,9 +13,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initCalendar();
     loadUsers();
+    loadZonesForSelect();
 
     document.getElementById('createTourForm').addEventListener('submit', handleCreateTour);
 });
+
+async function loadZonesForSelect() {
+    try {
+        const response = await fetch('http://localhost:3000/api/zones');
+        const zones = await response.json();
+        const select = document.getElementById('tourZones');
+        select.innerHTML = zones.map(z => `<option value="${z.idZona}">${z.nombre}</option>`).join('');
+    } catch (error) {
+        console.error('Error loading zones:', error);
+    }
+}
 
 let calendar;
 
@@ -52,6 +64,9 @@ async function handleCreateTour(e) {
     const type = document.getElementById('tourType').value;
     const date = document.getElementById('tourDate').value;
     const duration = document.getElementById('tourDuration').value;
+    
+    const zonesSelect = document.getElementById('tourZones');
+    const selectedZones = Array.from(zonesSelect.selectedOptions).map(option => option.value);
 
     // Convert datetime-local to MySQL format (YYYY-MM-DD HH:MM:SS)
     const mysqlDate = date.replace('T', ' ') + ':00';
@@ -60,7 +75,13 @@ async function handleCreateTour(e) {
         const response = await fetch('http://localhost:3000/api/tours', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ tipo: type, fechaInicio: mysqlDate, duracion: duration, idGuia: null }) // Guide optional for now
+            body: JSON.stringify({ 
+                tipo: type, 
+                fechaInicio: mysqlDate, 
+                duracion: duration, 
+                idGuia: null,
+                zones: selectedZones 
+            }) 
         });
 
         if (response.ok) {

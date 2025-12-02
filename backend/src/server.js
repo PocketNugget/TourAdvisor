@@ -107,13 +107,28 @@ app.get('/api/tours', async (req, res) => {
 });
 
 app.post('/api/tours', async (req, res) => {
-    const { tipo, fechaInicio, duracion, idGuia } = req.body;
+    const { tipo, fechaInicio, duracion, idGuia, zones } = req.body;
     try {
         const [result] = await connection.execute(
             'INSERT INTO RecorridoVirtual (tipo, fechaInicio, duracion, idGuia) VALUES (?, ?, ?, ?)',
             [tipo, fechaInicio, duracion, idGuia]
         );
-        res.status(201).json({ id: result.insertId, message: 'Tour created successfully' });
+        
+        const tourId = result.insertId;
+
+        // Insert Zones if provided
+        if (zones && zones.length > 0) {
+            const zoneValues = zones.map(zId => [tourId, zId]);
+            // Helper to flatten for bulk insert or loop
+            for (const zId of zones) {
+                await connection.execute(
+                    'INSERT INTO Recorrido_Zonas (idRecorrido, idZona) VALUES (?, ?)',
+                    [tourId, zId]
+                );
+            }
+        }
+
+        res.status(201).json({ id: tourId, message: 'Tour created successfully' });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

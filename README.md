@@ -33,10 +33,14 @@
 
 ## Screenshots
 
-1. **Landing Page:** Immersive hero section with "Start Tour" and feature highlights.
-2. **Login Portal:** Dedicated secure entry point for users and admins.
-3. **User Dashboard:** Personal calendar and booking interface.
-4. **Admin Dashboard:** Tour creation tools and user management list.
+### Landing Page
+![Landing Page](https://images.unsplash.com/photo-1518638151313-982d9120c80b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80)
+
+### User Dashboard
+![User Dashboard](https://images.unsplash.com/photo-1552074291-ad4dfd8b11c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80)
+
+### Admin Dashboard
+![Admin Dashboard](https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80)
 
 ---
 
