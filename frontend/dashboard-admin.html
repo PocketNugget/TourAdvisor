@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - MayaVision</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
     <script>
         tailwind.config = {
@@ -61,8 +62,12 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-sm text-gray-400">Date & Time</label>
-                            <input type="datetime-local" id="tourDate" class="w-full bg-gray-700 rounded p-2 text-white" required>
+                            <label class="block text-sm text-gray-400">Date</label>
+                            <input type="date" id="tourDate" class="w-full bg-gray-700 rounded p-2 text-white mb-2" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-400">Time</label>
+                            <input type="time" id="tourTime" class="w-full bg-gray-700 rounded p-2 text-white" required>
                         </div>
                         <div>
                             <label class="block text-sm text-gray-400">Duration (min)</label>

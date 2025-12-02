@@ -20,8 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function loadZonesForSelect() {
     try {
-        const response = await fetch('http://localhost:3000/api/zones');
-        const zones = await response.json();
+        const zones = await $.ajax({
+            url: 'http://localhost:3000/api/zones',
+            method: 'GET'
+        });
         const select = document.getElementById('tourZones');
         select.innerHTML = zones.map(z => `<option value="${z.idZona}">${z.nombre}</option>`).join('');
     } catch (error) {
@@ -42,8 +44,10 @@ function initCalendar() {
         },
         events: async function(info, successCallback, failureCallback) {
             try {
-                const response = await fetch('http://localhost:3000/api/tours');
-                const tours = await response.json();
+                const tours = await $.ajax({
+                    url: 'http://localhost:3000/api/tours',
+                    method: 'GET'
+                });
                 const events = tours.map(t => ({
                     title: t.tipo,
                     start: t.fechaInicio,
@@ -63,64 +67,74 @@ async function handleCreateTour(e) {
     e.preventDefault();
     const type = document.getElementById('tourType').value;
     const date = document.getElementById('tourDate').value;
+    const time = document.getElementById('tourTime').value;
     const duration = document.getElementById('tourDuration').value;
     
     const zonesSelect = document.getElementById('tourZones');
     const selectedZones = Array.from(zonesSelect.selectedOptions).map(option => option.value);
 
-    // Convert datetime-local to MySQL format (YYYY-MM-DD HH:MM:SS)
-    const mysqlDate = date.replace('T', ' ') + ':00';
+    // Combine date and time for MySQL (YYYY-MM-DD HH:MM:SS)
+    const mysqlDate = `${date} ${time}:00`;
 
     try {
-        const response = await fetch('http://localhost:3000/api/tours', {
+        await $.ajax({
+            url: 'http://localhost:3000/api/tours',
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
+            contentType: 'application/json',
+            data: JSON.stringify({ 
                 tipo: type, 
                 fechaInicio: mysqlDate, 
                 duracion: duration, 
                 idGuia: null,
                 zones: selectedZones 
-            }) 
+            })
         });
 
-        if (response.ok) {
-            alert('Tour scheduled successfully!');
-            calendar.refetchEvents();
-            e.target.reset();
-        } else {
-            const data = await response.json();
-            alert('Failed to schedule tour: ' + (data.error || 'Unknown error'));
-        }
+        alert('Tour scheduled successfully!');
+        calendar.refetchEvents();
+        e.target.reset();
     } catch (error) {
         console.error('Error creating tour:', error);
+        alert('Failed to schedule tour: ' + (error.responseJSON?.error || 'Unknown error'));
     }
 }
 
 async function loadUsers() {
     try {
-        const response = await fetch('http://localhost:3000/api/participants');
-        const users = await response.json();
-        const list = document.getElementById('usersList');
-        
-        list.innerHTML = users.map(u => `
-            <div class="bg-gray-800 p-2 rounded flex justify-between items-center">
-                <div>
-                    <span class="text-white font-bold text-sm">${u.nombre}</span>
-                    <span class="text-xs text-gray-400 block">${u.tourType ? 'Booked: ' + u.tourType : 'No Tour'}</span>
-                </div>
-                <button onclick="deleteUser(${u.idParticipante})" class="text-red-400 hover:text-red-300 text-xs">Remove</button>
-            </div>
+        const users = await $.ajax({
+            url: 'http://localhost:3000/api/participants',
+            method: 'GET'
+        });
+        const tbody = document.getElementById('usersTableBody');
+        tbody.innerHTML = users.map(u => `
+            <tr class="border-b border-gray-700">
+                <td class="p-3">${u.nombre}</td>
+                <td class="p-3">${u.correo}</td>
+                <td class="p-3">
+                    <span class="px-2 py-1 rounded text-xs ${u.conexionActiva ? 'bg-green-900 text-green-300' : 'bg-gray-700 text-gray-300'}">
+                        ${u.conexionActiva ? 'Online' : 'Offline'}
+                    </span>
+                </td>
+                <td class="p-3">
+                    <button onclick="deleteUser(${u.idParticipante})" class="text-red-400 hover:text-red-300">
+                        <i data-feather="trash-2" class="w-4 h-4"></i>
+                    </button>
+                </td>
+            </tr>
         `).join('');
+        feather.replace();
     } catch (error) {
         console.error('Error loading users:', error);
     }
 }
 
 async function deleteUser(id) {
-    if(!confirm('Remove user?')) return;
+    if(!confirm('Are you sure you want to delete this user?')) return;
     try {
-        await fetch(`http://localhost:3000/api/participants/${id}`, { method: 'DELETE' });
+        await $.ajax({
+            url: `http://localhost:3000/api/participants/${id}`,
+            method: 'DELETE'
+        });
         loadUsers();
     } catch (error) {
         console.error('Error deleting user:', error);

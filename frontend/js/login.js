@@ -18,66 +18,66 @@ document.addEventListener('DOMContentLoaded', () => {
         registerForm.classList.remove('hidden');
         loginForm.classList.add('hidden');
         tabRegister.classList.add('bg-gray-700', 'text-white');
-        tabRegister.classList.remove('text-gray-400');
-        tabLogin.classList.remove('bg-gray-700', 'text-white');
-        tabLogin.classList.add('text-gray-400');
+        showTab('register');
     });
 
     // Handle Login
-    loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const user = document.getElementById('loginUser').value;
-        const pass = document.getElementById('loginPass').value;
+    loginForm.addEventListener('submit', async function handleLogin(e) {
+    e.preventDefault();
+    const user = document.getElementById('loginUser').value;
+    const pass = document.getElementById('loginPass').value;
 
-        try {
-            const response = await fetch('http://localhost:3000/api/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: user, password: pass })
-            });
-            const data = await response.json();
+    try {
+        const data = await $.ajax({
+            url: 'http://localhost:3000/api/login',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ username: user, password: pass })
+        });
 
-            if (data.success) {
-                localStorage.setItem('tourUser', JSON.stringify(data.user));
-                
-                // Redirect based on role
-                if (data.user.role === 'Admin') {
-                    window.location.href = 'dashboard-admin.html';
-                } else {
-                    window.location.href = 'dashboard-user.html';
-                }
+        if (data.success) {
+            const currentUser = data.user;
+            localStorage.setItem('tourUser', JSON.stringify(currentUser));
+            alert(`Welcome back, ${currentUser.nombre}!`);
+            
+            // Redirect based on role
+            if (currentUser.role === 'Admin') {
+                window.location.href = 'dashboard-admin.html';
             } else {
-                alert('Login failed: ' + data.message);
+                window.location.href = 'dashboard-user.html';
             }
-        } catch (error) {
-            console.error('Login error:', error);
-            alert('Server error. Is the backend running?');
+        } else {
+            alert('Login failed: ' + data.message);
         }
-    });
+    } catch (error) {
+        console.error('Login error:', error);
+        alert('Login failed: ' + (error.responseJSON?.message || 'Server error'));
+    }
+});
+
+async function handleRegister(e) {
+    e.preventDefault();
+    const name = document.getElementById('regName').value;
+    const email = document.getElementById('regEmail').value;
+    const user = document.getElementById('regUser').value;
+    const pass = document.getElementById('regPass').value;
+
+    try {
+        await $.ajax({
+            url: 'http://localhost:3000/api/participants',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ nombre: name, correo: email, username: user, password: pass, idRol: 1 })
+        });
+        
+        alert('Registration successful! Please login.');
+        showTab('login');
+    } catch (error) {
+        console.error('Register error:', error);
+        alert('Registration failed.');
+    }
+}
 
     // Handle Register
-    registerForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const name = document.getElementById('regName').value;
-        const email = document.getElementById('regEmail').value;
-        const user = document.getElementById('regUser').value;
-        const pass = document.getElementById('regPass').value;
-
-        try {
-            const response = await fetch('http://localhost:3000/api/participants', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nombre: name, correo: email, username: user, password: pass, idRol: 1 })
-            });
-            
-            if (response.ok) {
-                alert('Registration successful! Please login.');
-                tabLogin.click(); // Switch to login tab
-            } else {
-                alert('Registration failed.');
-            }
-        } catch (error) {
-            console.error('Register error:', error);
-        }
-    });
+    registerForm.addEventListener('submit', handleRegister);
 });

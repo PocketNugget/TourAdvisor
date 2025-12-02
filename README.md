@@ -94,7 +94,7 @@ The system comes pre-seeded with the following accounts for testing:
 ### For Administrators 🛡️
 1.  **Login:** Access the system using the `admin` credentials.
 2.  **Master Schedule:** View all tours across the platform on the main calendar.
-3.  **Create Tours:** Use the "Create New Tour" form to schedule tours and **assign specific zones** to them.
+3.  **Create Tours:** Use the "Create New Tour" form to schedule tours (selecting **Date** and **Time** separately) and **assign specific zones** to them.
 4.  **Manage Users:** Monitor active participants and remove users if necessary.
 
 ---
@@ -104,8 +104,8 @@ The system comes pre-seeded with the following accounts for testing:
 The system follows a strict **3-Tier Architecture**:
 
 1.  **Presentation Tier (Frontend):**
-    -   HTML5, Tailwind CSS, Vanilla JavaScript.
-    -   Communicates with the backend via RESTful API calls (Fetch).
+    -   HTML5, Tailwind CSS, **jQuery**.
+    -   Communicates with the backend via **AJAX requests (`$.ajax`)**.
     -   Uses **FullCalendar** for schedule visualization.
 
 2.  **Logic Tier (Backend):**
@@ -128,6 +128,22 @@ The system follows a strict **3-Tier Architecture**:
     ```bash
     docker-compose logs -f app
     ```
+
+---
+
+## Extensions & Extra Points 🌟
+
+This project implements the following optional extensions:
+
+### 1. AJAX Queries with jQuery
+-   **Implementation:** All frontend-backend communication (Login, Registration, Tour Booking, Zone Movement, Admin Management) has been refactored to use **jQuery AJAX (`$.ajax`)** instead of the native Fetch API.
+-   **Benefit:** Provides robust cross-browser compatibility and simplified asynchronous request handling.
+-   **Files:** `frontend/js/login.js`, `frontend/js/user.js`, `frontend/js/admin.js`.
+
+### 2. Connection to a DBMS (MySQL)
+-   **Implementation:** The system is fully integrated with a **MySQL** database to manage all persistent data.
+-   **Entities Managed:** Users (`Participante`), Roles (`Rol`), Zones (`ZonaGeografica`), Tours (`RecorridoVirtual`), and Avatars (`Avatar`).
+-   **Architecture:** The Node.js backend uses the `mysql2` driver to execute SQL queries directly against the containerized MySQL instance.
 
 ---
 

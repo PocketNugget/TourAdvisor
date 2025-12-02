@@ -19,13 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function loadZonesForMove() {
     try {
-        const response = await fetch('http://localhost:3000/api/zones');
-        const zones = await response.json();
+        const zones = await $.ajax({
+            url: 'http://localhost:3000/api/zones',
+            method: 'GET'
+        });
         const select = document.getElementById('moveZoneSelect');
         select.innerHTML = zones.map(z => `<option value="${z.idZona}">${z.nombre}</option>`).join('');
-        
-        // Also update current location display if we had that info in user object (we might need to fetch user details again)
-        // For now, default is Lobby or whatever is in DB.
     } catch (error) {
         console.error('Error loading zones:', error);
     }
@@ -37,20 +36,18 @@ async function moveAvatar() {
     const zoneName = document.getElementById('moveZoneSelect').options[document.getElementById('moveZoneSelect').selectedIndex].text;
 
     try {
-        const response = await fetch('http://localhost:3000/api/move', {
+        await $.ajax({
+            url: 'http://localhost:3000/api/move',
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ idParticipante: user.id, idZona: zoneId })
+            contentType: 'application/json',
+            data: JSON.stringify({ idParticipante: user.id, idZona: zoneId })
         });
 
-        if (response.ok) {
-            document.getElementById('currentZoneDisplay').textContent = zoneName;
-            alert(`Moved to ${zoneName}`);
-        } else {
-            alert('Failed to move.');
-        }
+        document.getElementById('currentZoneDisplay').textContent = zoneName;
+        alert(`Moved to ${zoneName}`);
     } catch (error) {
         console.error('Error moving:', error);
+        alert('Failed to move.');
     }
 }
 window.moveAvatar = moveAvatar;
@@ -68,8 +65,10 @@ function initCalendar() {
         },
         events: async function(info, successCallback, failureCallback) {
             try {
-                const response = await fetch('http://localhost:3000/api/tours');
-                const tours = await response.json();
+                const tours = await $.ajax({
+                    url: 'http://localhost:3000/api/tours',
+                    method: 'GET'
+                });
                 const events = tours.map(t => ({
                     title: t.tipo,
                     start: t.fechaInicio,
@@ -87,8 +86,10 @@ function initCalendar() {
 
 async function loadTours() {
     try {
-        const response = await fetch('http://localhost:3000/api/tours');
-        const tours = await response.json();
+        const tours = await $.ajax({
+            url: 'http://localhost:3000/api/tours',
+            method: 'GET'
+        });
         const list = document.getElementById('toursList');
         
         list.innerHTML = tours.map(t => `
@@ -125,31 +126,29 @@ async function bookTour(tourId) {
     if(!confirm('Confirm booking for this tour?')) return;
 
     try {
-        const response = await fetch('http://localhost:3000/api/book', {
+        await $.ajax({
+            url: 'http://localhost:3000/api/book',
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ idParticipante: user.id, idRecorrido: tourId })
+            contentType: 'application/json',
+            data: JSON.stringify({ idParticipante: user.id, idRecorrido: tourId })
         });
         
-        if (response.ok) {
-            alert('Tour booked successfully!');
-            loadMyBookings(user.id);
-            calendar.refetchEvents(); // Refresh calendar if we want to show booked status differently
-        } else {
-            alert('Failed to book tour.');
-        }
+        alert('Tour booked successfully!');
+        loadMyBookings(user.id);
+        calendar.refetchEvents(); 
     } catch (error) {
         console.error('Booking error:', error);
+        alert('Failed to book tour.');
     }
 }
 window.bookTour = bookTour;
 
 async function loadMyBookings(userId) {
-    // Ideally we have an endpoint for this, but for MVP we can filter participants list or add a new endpoint.
-    // Let's use the participants endpoint which joins with tours.
     try {
-        const response = await fetch('http://localhost:3000/api/participants');
-        const users = await response.json();
+        const users = await $.ajax({
+            url: 'http://localhost:3000/api/participants',
+            method: 'GET'
+        });
         const me = users.find(u => u.idParticipante === userId);
         
         const container = document.getElementById('myBookings');
