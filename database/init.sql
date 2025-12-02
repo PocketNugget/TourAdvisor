@@ -112,3 +112,7 @@ INSERT INTO Avatar (tipoAvatar, estado, idParticipante, idRol) VALUES ('AdminAva
 INSERT INTO Participante (nombre, username, password, correo) VALUES ('Standard User', 'user', 'user', 'user@example.com');
 SET @userId = LAST_INSERT_ID();
 INSERT INTO Avatar (tipoAvatar, estado, idParticipante, idRol) VALUES ('ExplorerAvatar', 'Active', @userId, 1);
+
+-- Make Admin a Guide as well to allow tour creation (idGuia FK)
+INSERT INTO GuiaTurista (idParticipante, certificacion, idioma) VALUES (@adminId, 'Official Guide', 'English, Spanish');
+

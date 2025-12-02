@@ -60,7 +60,7 @@ async function handleCreateTour(e) {
         const response = await fetch('http://localhost:3000/api/tours', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ tipo: type, fechaInicio: mysqlDate, duracion: duration, idGuia: 1 }) // Default guide
+            body: JSON.stringify({ tipo: type, fechaInicio: mysqlDate, duracion: duration, idGuia: null }) // Guide optional for now
         });
 
         if (response.ok) {
@@ -68,7 +68,8 @@ async function handleCreateTour(e) {
             calendar.refetchEvents();
             e.target.reset();
         } else {
-            alert('Failed to schedule tour.');
+            const data = await response.json();
+            alert('Failed to schedule tour: ' + (data.error || 'Unknown error'));
         }
     } catch (error) {
         console.error('Error creating tour:', error);
